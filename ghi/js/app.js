@@ -29,7 +29,7 @@ function alert() {
 
 window.addEventListener('DOMContentLoaded', async () => {
 
-    const url = 'http://localhost:8000/api/conferences12312321321312321/';
+    const url = 'http://localhost:8000/api/conferences/';
     const columns = document.querySelectorAll('.col')
     let colIndx = 0
 
