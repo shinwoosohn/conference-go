@@ -1,7 +1,7 @@
 function createCard(name, description, pictureUrl, starts, ends, location) {
     return `
         <div class="col">
-            <div class="card shadow p-3 mb-5 bg-body-tertiary rounded">
+            <div class="card shadow p-3 mb-5 bg-body-tertiary rounded" aria-hidden="true">
                 <img src="${pictureUrl}" class="card-img-top">
                 <div class="card-body">
                     <h5 class="card-title">${name}</h5>

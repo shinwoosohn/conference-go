@@ -26,6 +26,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         const formData = new FormData(formTag);
         const json = JSON.stringify(Object.fromEntries(formData));
 
+        const locationUrl = 'http://localhost:8000/api/locations/';
         const fetchConfig = {
             method: "post",
             body: json,
@@ -34,7 +35,6 @@ window.addEventListener('DOMContentLoaded', async () => {
             },
         };
 
-        const locationUrl = 'http://localhost:8000/api/locations/';
         const locationResponse = await fetch(locationUrl, fetchConfig);
         if (locationResponse.ok) {
             formTag.reset();

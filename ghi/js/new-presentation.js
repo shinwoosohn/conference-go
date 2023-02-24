@@ -1,27 +1,28 @@
 window.addEventListener('DOMContentLoaded', async () => {
-    const url = 'http://localhost:8000/api/locations/';
+    const url = 'http://localhost:8000/api/conferences/';
+    const selectTag = document.getElementById('conference');
 
     const response = await fetch(url);
     if (response.ok) {
         const data = await response.json();
         console.log(data);
 
-        const selectTag = document.getElementById('location');
-        for (let location of data.locations) {
+        for (let conference of data.conferences) {
             const option = document.createElement('option');
-            option.value = location.id;
-            option.innerHTML = location.name;
+            option.value = conference.id;
+            option.innerHTML = conference.name;
             selectTag.appendChild(option);
         }
     }
 
-    const formTag = document.getElementById('create-conference-form');
+    const formTag = document.getElementById('create-presentation-form');
     formTag.addEventListener('submit', async event => {
         event.preventDefault();
         const formData = new FormData(formTag);
         const json = JSON.stringify(Object.fromEntries(formData));
 
-        const conferenceUrl = 'http://localhost:8000/api/conferences/';
+        const conferenceId = selectTag.options[selectTag.selectedIndex].value;
+        const presentationUrl = `http://localhost:8000/api/conferences/${conferenceId}/presentations/`;
         const fetchConfig = {
             method: "post",
             body: json,
@@ -30,11 +31,11 @@ window.addEventListener('DOMContentLoaded', async () => {
             },
         };
 
-        const conferenceResponse = await fetch(conferenceUrl, fetchConfig);
-        if (conferenceResponse.ok) {
+        const presentationResponse = await fetch(presentationUrl, fetchConfig);
+        if (presentationResponse.ok) {
             formTag.reset();
-            const newConference = await conferenceResponse.json();
-            console.log(newConference);
+            const newPresentation = await presentationResponse.json();
+            console.log(newPresentation);
 
         }
     });
