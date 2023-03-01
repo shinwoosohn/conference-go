@@ -5,6 +5,8 @@ function AttendeeForm () {
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
     const [conference, setConference] = useState('');
+    const [alert, setAlert] = useState(false);
+    const [formGone, setFormGone] = useState(true);
 
 
     const handleFullNameChange = (event) => {
@@ -33,10 +35,18 @@ function AttendeeForm () {
         }
     }
 
+    let spinnerClasses = 'd-flex justify-content-center mb-3';
+    let dropdownClasses = 'form-select d-none';
+    if (conferences.length > 0) {
+        spinnerClasses = 'd-flex justify-content-center mb-3 d-none';
+        dropdownClasses = 'form-select';
+    }
+
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = {};
-        data.fullname = fullName;
+        data.name = fullName;
         data.email = email;
         data.conference = conference;
 
@@ -50,7 +60,7 @@ function AttendeeForm () {
                 'Content-Type': 'application/json',
             },
         };
-        const successTag = document.getElementById('success-message');
+
         const attendeeResponse = await fetch(attendeeUrl, fetchConfig);
         if (attendeeResponse.ok) {
             const newAttendee = await attendeeResponse.json();
@@ -59,6 +69,8 @@ function AttendeeForm () {
             setFullName('');
             setEmail('');
             setConference('');
+            setAlert(true);
+            setFormGone(false);
 
         }
     }
@@ -68,12 +80,6 @@ function AttendeeForm () {
     }, []);
 
 
-    let spinnerClasses = 'd-flex justify-content-center mb-3';
-    let dropdownClasses = 'form-select d-none';
-    if (conferences.length > 0) {
-        spinnerClasses = 'd-flex justify-content-center mb-3 d-none';
-        dropdownClasses = 'form-select';
-    }
 
     return (
         <div className="my-5">
@@ -84,19 +90,19 @@ function AttendeeForm () {
           <div className="col">
             <div className="card shadow">
               <div className="card-body">
-                <form onSubmit={handleSubmit} id="create-attendee-form">
+                <form onSubmit={handleSubmit} id="create-attendee-form" className={`${formGone ? '' : 'd-none'}`}>
                   <h1 className="card-title">It's Conference Time!</h1>
                   <p className="mb-3">
                     Please choose which conference
                     you'd like to attend.
                   </p>
-                  <div className="d-flex justify-content-center mb-3 d-none" id="loading-conference-spinner">
+                  <div className={spinnerClasses} id="loading-conference-spinner">
                     <div className="spinner-grow text-secondary" role="status">
                       <span className="visually-hidden">Loading...</span>
                     </div>
                   </div>
                   <div className="mb-3">
-                    <select required name="conference" id="conference" className="form-select">
+                    <select required onChange={handleConferenceChange} value={conference} name="conference" id="conference" className={dropdownClasses}>
                       <option value="">Choose a conference</option>
                       {conferences.map(conference => {
                         return (
@@ -126,7 +132,7 @@ function AttendeeForm () {
                   </div>
                   <button className="btn btn-lg btn-primary">I'm going!</button>
                 </form>
-                <div className="alert alert-success d-none mb-0" id="success-message">
+                <div className={`alert ${alert ? 'alert-success' : 'd-none'} mb-0`} id="success-message">
                   Congratulations! You're all signed up!
                 </div>
               </div>
