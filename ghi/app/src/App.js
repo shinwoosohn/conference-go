@@ -6,22 +6,26 @@ import AttendeesList from './AttendeesList';
 import LocationForm from './LocationForm';
 import ConferenceForm from './ConferenceForm';
 import AttendeeForm from './AttendeeForm';
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App(props) {
   if (props.attendees === undefined) {
     return null;
   }
   return (
-    <React.Fragment>
+    <BrowserRouter>
       <Nav />
       <div className="container">
-        {/* <ConferenceForm /> */}
-        {/* <LocationForm /> */}
-        <AttendeeForm />
-        {/* <AttendeesList attendees={props.attendees} /> */}
+        <Routes>
+          <Route path="conferences">
+            <Route path="new" element={<ConferenceForm />} />
+          </Route>
+          <Route path="locations">
+            <Route path="new" element={<LocationForm />} />
+          </Route>
+        </Routes>
       </div>
-    </React.Fragment>
+    </BrowserRouter>
   );
 }
 export default App;
