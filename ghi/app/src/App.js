@@ -17,7 +17,6 @@ function App(props) {
   return (
     <BrowserRouter>
       <Nav />
-      <div className="container">
         <Routes>
           <Route path="conferences">
             <Route path="new" element={<ConferenceForm />} />
@@ -34,7 +33,6 @@ function App(props) {
           </Route>
           <Route index element={<MainPage />} />
         </Routes>
-      </div>
     </BrowserRouter>
   );
 }
