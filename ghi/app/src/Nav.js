@@ -1,24 +1,27 @@
+import React from "react";
+import { NavLink } from "react-router-dom";
+
 function Nav() {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">Conference GO!</a>
+          <NavLink className="navbar-brand" to="/">Conference GO!</NavLink>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <a className="nav-link" aria-current="page" href="http://localhost:3000/">Home</a>
+                <NavLink className="nav-link" aria-current="page" to="/attendees/">Attendees</NavLink>
               </li>
               <li className="nav-item">
-                <a className="nav-link" aria-current="page" href="http://localhost:3000/new-location.html" id="locPerm">New location</a>
+                <NavLink className="nav-link" aria-current="page" to="/locations/new" id="locPerm">New location</NavLink>
               </li>
               <li className="nav-item">
-                <a className="nav-link" aria-current="page" href="http://localhost:3000/new-conference.html" id="confPerm">New conference</a>
+                <NavLink className="nav-link" aria-current="page" to="/conferences/new" id="confPerm">New conference</NavLink>
               </li>
               <li className="nav-item">
-                <a className="nav-link" aria-current="page" href="http://localhost:3000/new-conference.html" id="presPerm">New presentation</a>
+                <NavLink className="nav-link" aria-current="page" to="/presentations/new" id="presPerm">New presentation</NavLink>
               </li>
             </ul>
           </div>
